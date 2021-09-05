@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">UFS Navigation Assistant</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="menu_building">Buildings</string>
+    <string name="menu_parking">Parkings</string>
+    <string name="menu_office">Offices</string>
+    <string name="nav_header_title">Header title</string>
+</resources>

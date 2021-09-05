@@ -1,0 +1,2 @@
+rootProject.name = "UFS Navigation Assistant"
+include ':app'

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_graph"
+    app:startDestination="@id/buildingsFragment">
+
+    <fragment
+        android:id="@+id/buildingsFragment"
+        android:name="com.example.ufsnavigationassistant.BuildingsFragment"
+        android:label="fragment_buildings"
+        tools:layout="@layout/fragment_buildings" />
+    <fragment
+        android:id="@+id/parkingsFragment"
+        android:name="com.example.ufsnavigationassistant.ParkingsFragment"
+        android:label="fragment_parkings"
+        tools:layout="@layout/fragment_parkings" />
+    <fragment
+        android:id="@+id/officesFragment"
+        android:name="com.example.ufsnavigationassistant.OfficesFragment"
+        android:label="fragment_offices"
+        tools:layout="@layout/fragment_offices" />
+</navigation>
