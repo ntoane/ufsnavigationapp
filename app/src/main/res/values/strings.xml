@@ -5,5 +5,14 @@
     <string name="menu_building">Buildings</string>
     <string name="menu_parking">Parkings</string>
     <string name="menu_office">Offices</string>
+    <string name="halls">Lecture Halls</string>
+    <string name="study">Study Places</string>
+    <string name="health">Health Services</string>
+    <string name="eating">Eating Places</string>
+    <string name="shops">Shops</string>
+    <string name="sports">Sports</string>
+    <string name="femaleToilets">Female Toilets</string>
+    <string name="maleToilets">Male Toilets</string>
+    <string name="hostels">Hostels</string>
     <string name="nav_header_title">Header title</string>
 </resources>

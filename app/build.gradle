@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-android-extensions'
+    id 'androidx.navigation.safeargs.kotlin'
 }
 
 android {
@@ -52,6 +54,14 @@ dependencies {
     def lifecycle_version = "2.3.1"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+
+    //Retrofit
+    implementation "com.squareup.retrofit2:retrofit:2.5.0"
+    //GSON
+    implementation "com.squareup.retrofit2:converter-gson:2.5.0"
+
+    //Logging
+    implementation "com.squareup.okhttp3:logging-interceptor:3.9.0"
 
     //Default
     testImplementation 'junit:junit:4.+'

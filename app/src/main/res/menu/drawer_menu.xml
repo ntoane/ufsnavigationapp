@@ -16,5 +16,41 @@
             android:id="@+id/officesFragment"
             android:icon="@drawable/office"
             android:title="@string/menu_office" />
+        <item
+            android:id="@+id/hallsFragment"
+            android:icon="@drawable/lecture_hall"
+            android:title="@string/halls" />
+        <item
+            android:id="@+id/studyFragment"
+            android:icon="@drawable/study_places"
+            android:title="@string/study" />
+        <item
+            android:id="@+id/healthFragment"
+            android:icon="@drawable/health_services"
+            android:title="@string/health" />
+        <item
+            android:id="@+id/eatingFragment"
+            android:icon="@drawable/eating_places"
+            android:title="@string/eating" />
+        <item
+            android:id="@+id/shopsFragment"
+            android:icon="@drawable/shops"
+            android:title="@string/shops" />
+        <item
+            android:id="@+id/sportsFragment"
+            android:icon="@drawable/sports"
+            android:title="@string/sports" />
+        <item
+            android:id="@+id/femaleToiletsFragment"
+            android:icon="@drawable/toilet"
+            android:title="@string/femaleToilets" />
+        <item
+            android:id="@+id/maleToiletsFragment"
+            android:icon="@drawable/toilet"
+            android:title="@string/maleToilets" />
+        <item
+            android:id="@+id/hostelsFragment"
+            android:icon="@drawable/building"
+            android:title="@string/hostels" />
     </group>
 </menu>

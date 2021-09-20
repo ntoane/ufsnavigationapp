@@ -8,16 +8,77 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.ufsnavigationassistant.HomeFragment"
-        android:label="fragment_home"
+        android:label="Home"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/whereFragment"
         android:name="com.example.ufsnavigationassistant.WhereFragment"
-        android:label="fragment_where"
+        android:label="My Location"
         tools:layout="@layout/fragment_where" />
     <fragment
         android:id="@+id/accountFragment"
         android:name="com.example.ufsnavigationassistant.AccountFragment"
-        android:label="fragment_account"
+        android:label="Account"
         tools:layout="@layout/fragment_account" />
+
+    <fragment
+        android:id="@+id/buildingsFragment"
+        android:name="com.example.ufsnavigationassistant.BuildingsFragment"
+        android:label="Buildings"
+        tools:layout="@layout/fragment_buildings" />
+    <fragment
+        android:id="@+id/parkingsFragment"
+        android:name="com.example.ufsnavigationassistant.ParkingsFragment"
+        android:label="Parkings"
+        tools:layout="@layout/fragment_parkings" />
+    <fragment
+        android:id="@+id/officesFragment"
+        android:name="com.example.ufsnavigationassistant.OfficesFragment"
+        android:label="Offices"
+        tools:layout="@layout/fragment_offices" />
+    <fragment
+        android:id="@+id/hallsFragment"
+        android:name="com.example.ufsnavigationassistant.HallsFragment"
+        android:label="Lecture Halls"
+        tools:layout="@layout/fragment_halls" />
+    <fragment
+        android:id="@+id/studyFragment"
+        android:name="com.example.ufsnavigationassistant.StudyFragment"
+        android:label="Study Places"
+        tools:layout="@layout/fragment_study" />
+    <fragment
+        android:id="@+id/healthFragment"
+        android:name="com.example.ufsnavigationassistant.HealthFragment"
+        android:label="Health Services"
+        tools:layout="@layout/fragment_health" />
+    <fragment
+        android:id="@+id/eatingFragment"
+        android:name="com.example.ufsnavigationassistant.EatingFragment"
+        android:label="Eating Places"
+        tools:layout="@layout/fragment_eating" />
+    <fragment
+        android:id="@+id/shopsFragment"
+        android:name="com.example.ufsnavigationassistant.ShopsFragment"
+        android:label="Shops"
+        tools:layout="@layout/fragment_shops" />
+    <fragment
+        android:id="@+id/sportsFragment"
+        android:name="com.example.ufsnavigationassistant.SportsFragment"
+        android:label="Sports"
+        tools:layout="@layout/fragment_sports" />
+    <fragment
+        android:id="@+id/femaleToiletsFragment"
+        android:name="com.example.ufsnavigationassistant.FemaleToilesFragment"
+        android:label="Female Toilets"
+        tools:layout="@layout/fragment_female_toilets" />
+    <fragment
+        android:id="@+id/maleToiletsFragment"
+        android:name="com.example.ufsnavigationassistant.MaleToiletsFragment"
+        android:label="Male Toilets"
+        tools:layout="@layout/fragment_male_toilets" />
+    <fragment
+        android:id="@+id/hostelsFragment"
+        android:name="com.example.ufsnavigationassistant.HostelsFragment"
+        android:label="Hostels"
+        tools:layout="@layout/fragment_hostels" />
 </navigation>
