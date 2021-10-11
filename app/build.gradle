@@ -63,6 +63,26 @@ dependencies {
     //Logging
     implementation "com.squareup.okhttp3:logging-interceptor:3.9.0"
 
+    //Recyclerview
+    implementation("androidx.recyclerview:recyclerview:1.2.1")
+    // For control over item selection of both touch and mouse driven selection
+    implementation("androidx.recyclerview:recyclerview-selection:1.1.0")
+
+    //Picasso for downloading images from url
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    //Image Slider
+    implementation 'com.github.smarteist:autoimageslider:1.4.0'
+
+    //Mapbox
+    //Legacy
+    /*implementation 'com.mapbox.mapboxsdk:mapbox-android-navigation-ui:0.42.6'
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-telemetry:6.1.0'*/
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-navigation-ui:0.42.6'
+
+    //new
+    //implementation "com.mapbox.navigation:ui:1.5.1"
+    //implementation "com.mapbox.navigation:core:1.5.1"
+
     //Default
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

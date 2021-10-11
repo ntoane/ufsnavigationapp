@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="8dp">
+
+        <ImageView
+            android:id="@+id/room_image_view"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/ic_meeting_room_24" />
+
+        <TextView
+            android:id="@+id/tv_room_name"
+            style="?attr/textRegular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/room_name"
+            android:textColor="@color/color_primary"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_toEndOf="@id/room_image_view"/>
+
+        <TextView
+            android:id="@+id/tv_building_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/building_name"
+            android:textSize="16sp"
+            android:layout_below="@id/tv_room_name"
+            android:layout_toEndOf="@id/room_image_view"/>
+
+        <ImageView
+            android:id="@+id/level_arrow_right"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_alignParentRight="true"
+            app:tint="@color/color_primary"
+            android:src="@drawable/keyboard_arrow_right" />
+    </RelativeLayout>
+</LinearLayout>

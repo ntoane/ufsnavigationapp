@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="pageBackground" format="reference" />
+    <attr name="splashBackground" format="reference" />
+    <attr name="textLarge" format="reference" />
+    <attr name="textRegular" format="reference" />
+    <attr name="greyBackground" format="reference" />
+    <attr name="button" format="reference" />
+    <attr name="seekBar" format="reference" />
+    <attr name="greySmoke" format="color" />
+</resources>

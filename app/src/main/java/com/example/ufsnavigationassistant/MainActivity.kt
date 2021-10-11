@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    //open drawer when drawer icon clicked and back btn presse
+    //open drawer when drawer icon clicked and back btn press
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }

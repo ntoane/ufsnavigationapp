@@ -7,78 +7,78 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.ufsnavigationassistant.HomeFragment"
+        android:name="com.example.ufsnavigationassistant.fragments.bottomnav.HomeFragment"
         android:label="Home"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/whereFragment"
-        android:name="com.example.ufsnavigationassistant.WhereFragment"
+        android:name="com.example.ufsnavigationassistant.fragments.bottomnav.WhereFragment"
         android:label="My Location"
         tools:layout="@layout/fragment_where" />
     <fragment
         android:id="@+id/accountFragment"
-        android:name="com.example.ufsnavigationassistant.AccountFragment"
+        android:name="com.example.ufsnavigationassistant.fragments.bottomnav.AccountFragment"
         android:label="Account"
         tools:layout="@layout/fragment_account" />
 
     <fragment
         android:id="@+id/buildingsFragment"
-        android:name="com.example.ufsnavigationassistant.BuildingsFragment"
+        android:name="com.example.ufsnavigationassistant.fragments.drawer.BuildingsFragment"
         android:label="Buildings"
         tools:layout="@layout/fragment_buildings" />
     <fragment
         android:id="@+id/parkingsFragment"
-        android:name="com.example.ufsnavigationassistant.ParkingsFragment"
+        android:name="com.example.ufsnavigationassistant.fragments.drawer.ParkingsFragment"
         android:label="Parkings"
         tools:layout="@layout/fragment_parkings" />
     <fragment
         android:id="@+id/officesFragment"
-        android:name="com.example.ufsnavigationassistant.OfficesFragment"
+        android:name="com.example.ufsnavigationassistant.fragments.drawer.OfficesFragment"
         android:label="Offices"
         tools:layout="@layout/fragment_offices" />
     <fragment
         android:id="@+id/hallsFragment"
-        android:name="com.example.ufsnavigationassistant.HallsFragment"
+        android:name="com.example.ufsnavigationassistant.fragments.drawer.HallsFragment"
         android:label="Lecture Halls"
         tools:layout="@layout/fragment_halls" />
     <fragment
         android:id="@+id/studyFragment"
-        android:name="com.example.ufsnavigationassistant.StudyFragment"
+        android:name="com.example.ufsnavigationassistant.fragments.drawer.StudyFragment"
         android:label="Study Places"
         tools:layout="@layout/fragment_study" />
     <fragment
         android:id="@+id/healthFragment"
-        android:name="com.example.ufsnavigationassistant.HealthFragment"
+        android:name="com.example.ufsnavigationassistant.fragments.drawer.HealthFragment"
         android:label="Health Services"
         tools:layout="@layout/fragment_health" />
     <fragment
         android:id="@+id/eatingFragment"
-        android:name="com.example.ufsnavigationassistant.EatingFragment"
+        android:name="com.example.ufsnavigationassistant.fragments.drawer.EatingFragment"
         android:label="Eating Places"
         tools:layout="@layout/fragment_eating" />
     <fragment
         android:id="@+id/shopsFragment"
-        android:name="com.example.ufsnavigationassistant.ShopsFragment"
+        android:name="com.example.ufsnavigationassistant.fragments.drawer.ShopsFragment"
         android:label="Shops"
         tools:layout="@layout/fragment_shops" />
     <fragment
         android:id="@+id/sportsFragment"
-        android:name="com.example.ufsnavigationassistant.SportsFragment"
+        android:name="com.example.ufsnavigationassistant.fragments.drawer.SportsFragment"
         android:label="Sports"
         tools:layout="@layout/fragment_sports" />
     <fragment
         android:id="@+id/femaleToiletsFragment"
-        android:name="com.example.ufsnavigationassistant.FemaleToilesFragment"
+        android:name="com.example.ufsnavigationassistant.fragments.drawer.FemaleToilesFragment"
         android:label="Female Toilets"
         tools:layout="@layout/fragment_female_toilets" />
     <fragment
         android:id="@+id/maleToiletsFragment"
-        android:name="com.example.ufsnavigationassistant.MaleToiletsFragment"
+        android:name="com.example.ufsnavigationassistant.fragments.drawer.MaleToiletsFragment"
         android:label="Male Toilets"
         tools:layout="@layout/fragment_male_toilets" />
     <fragment
         android:id="@+id/hostelsFragment"
-        android:name="com.example.ufsnavigationassistant.HostelsFragment"
+        android:name="com.example.ufsnavigationassistant.fragments.drawer.HostelsFragment"
         android:label="Hostels"
         tools:layout="@layout/fragment_hostels" />
 </navigation>

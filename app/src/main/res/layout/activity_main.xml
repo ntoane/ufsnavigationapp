@@ -5,8 +5,10 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingEnd="0dp"
     android:fitsSystemWindows="true"
     tools:openDrawer="start"
+    style="?pageBackground"
     tools:context=".MainActivity">
 
     <RelativeLayout
@@ -27,6 +29,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
+            android:background="@drawable/page_background"
+            app:itemTextAppearanceActive="@style/BottomNavigationView.Active"
+            app:itemTextAppearanceInactive="@style/BottomNavigationView"
             app:menu="@menu/bottom_nav" />
     </RelativeLayout>
 
@@ -36,6 +41,8 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:headerLayout="@layout/drawer_header"
+        android:background="@drawable/page_background"
+        app:itemTextAppearance="@style/MenuItems"
         app:menu="@menu/drawer_menu"
         android:paddingTop="50dp"/>
 

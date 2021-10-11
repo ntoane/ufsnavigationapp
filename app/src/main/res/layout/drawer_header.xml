@@ -2,19 +2,25 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="176dp"
-    android:background="@color/teal_200"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/dark_blue"
     android:gravity="bottom"
     android:orientation="vertical"
     android:padding="16dp">
 
     <ImageView
+        android:id="@+id/header_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/ic_launcher_round" />
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/ufs_app_logo" />
 
-    <TextView
+    <Button
+        android:id="@+id/login_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="8dp"
-        android:text="@string/app_name" />
+        android:text="@string/login"
+        app:icon="@drawable/login" />
+
 </LinearLayout>

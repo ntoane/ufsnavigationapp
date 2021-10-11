@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="page_background">
+        <item name="android:background">@drawable/page_background</item>
+        <item name="android:paddingRight">@dimen/padding_horizontal</item>
+    </style>
+
+    <style name="splash_background">
+        <item name="android:background">@drawable/splash_background</item>
+    </style>
+
+    <style name="white_background">
+        <item name="android:background">@android:color/white</item>
+        <item name="android:layout_marginTop">@dimen/margin_top</item>
+        <item name="android:layout_marginBottom">@dimen/margin_top</item>
+        <item name="android:padding">@dimen/padding</item>
+    </style>
+
+    <style name="text_large">
+        <item name="android:textColor">@android:color/background_dark</item>
+        <item name="android:textSize">@dimen/text_size_large</item>
+        <item name="android:shadowDy">1.0</item>
+        <item name="android:shadowRadius">1</item>
+        <item name="android:shadowColor">#888</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="text_regular">
+        <item name="android:textColor">@android:color/background_dark</item>
+        <item name="android:textSize">@dimen/text_size_regular</item>
+    </style>
+
+    <style name="button" parent="text_large">
+        <item name="android:background">@drawable/button_background</item>
+        <item name="android:layout_marginTop">@dimen/margin</item>
+        <item name="android:paddingHorizontal" tools:targetApi="o">@dimen/padding_horizontal</item>
+    </style>
+
+    <!--Drawer textSize-->
+    <style name="MenuItems">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <!--Bottom Navigation-->
+    <style name="BottomNavigationView" parent="@style/TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="BottomNavigationView.Active" parent="@style/TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+</resources>

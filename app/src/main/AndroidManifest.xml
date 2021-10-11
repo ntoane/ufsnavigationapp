@@ -1,18 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.ufsnavigationassistant">
+    package="com.example.ufsnavigationassistant" >
 
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
-        android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.UFSNavigationAssistant">
-        <activity android:name=".MainActivity">
+        android:theme="@style/Theme.UFSNavigationAssistant"
+        android:usesCleartextTraffic="true" >
+        <activity
+            android:name=".activities.BuildingNavigationActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activities.BuildingLevelRoomsActivity"
+            android:exported="true"
+            android:parentActivityName=".activities.BuildingDetailsActivity" />
+        <activity
+            android:name=".activities.BuildingDetailsActivity"
+            android:exported="true"
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
