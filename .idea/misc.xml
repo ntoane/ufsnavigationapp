@@ -11,10 +11,12 @@
         <entry key="app/src/main/res/drawable/page_background.xml" value="0.2846153846153846" />
         <entry key="app/src/main/res/drawable/recycler_divider.xml" value="0.28888888888888886" />
         <entry key="app/src/main/res/layout-v26/fragment_home.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/activity_building_details.xml" value="0.27760416666666665" />
+        <entry key="app/src/main/res/layout/activity_basic_nav_sdk_only.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_building_details.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_building_level_rooms.xml" value="0.27760416666666665" />
         <entry key="app/src/main/res/layout/activity_building_navigation.xml" value="0.2640625" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_start_navigation.xml" value="0.2630208333333333" />
         <entry key="app/src/main/res/layout/building_level_list_item.xml" value="0.27760416666666665" />
         <entry key="app/src/main/res/layout/building_list_item.xml" value="0.27291666666666664" />
         <entry key="app/src/main/res/layout/building_room_list_item.xml" value="0.27760416666666665" />

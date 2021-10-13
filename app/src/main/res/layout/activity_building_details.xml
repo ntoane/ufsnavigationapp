@@ -91,4 +91,30 @@
         app:layout_constraintEnd_toEndOf="parent"
         tools:ignore="SpeakableTextPresentCheck" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/walk_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        app:fabSize="normal"
+        app:layout_constraintBottom_toTopOf="@+id/navigation_fab"
+        app:layout_constraintEnd_toEndOf="@+id/navigation_fab"
+        app:layout_constraintStart_toStartOf="@+id/navigation_fab"
+        app:srcCompat="@drawable/ic_baseline_directions_walk"
+        app:backgroundTint="@color/dark_blue"
+        app:tint="@color/white"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/car_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        app:fabSize="normal"
+        app:layout_constraintBottom_toTopOf="@+id/walk_fab"
+        app:layout_constraintEnd_toEndOf="@+id/walk_fab"
+        app:layout_constraintStart_toStartOf="@+id/walk_fab"
+        app:srcCompat="@drawable/ic_baseline_directions_car"
+        app:backgroundTint="@color/dark_blue"
+        app:tint="@color/white"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.ufsnavigationassistant.R
 import com.mapbox.api.directions.v5.models.DirectionsRoute
-import com.mapbox.mapboxsdk.Mapbox
+//import com.mapbox.mapboxsdk.Mapbox
 /*import com.mapbox.navigation.core.MapboxNavigation
 import com.mapbox.navigation.ui.NavigationViewOptions
 import com.mapbox.navigation.ui.OnNavigationReadyCallback

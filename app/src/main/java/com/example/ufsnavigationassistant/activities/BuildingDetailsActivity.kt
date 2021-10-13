@@ -4,7 +4,6 @@ import android.content.Intent
 import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,34 +12,29 @@ import com.example.ufsnavigationassistant.core.BuildingLevelAdapter
 import com.example.ufsnavigationassistant.core.ImageSliderAdapter
 import com.example.ufsnavigationassistant.models.Building
 import com.example.ufsnavigationassistant.models.BuildingLevel
-import com.example.ufsnavigationassistant.models.LevelRoom
 import com.example.ufsnavigationassistant.services.BuildingService
 import com.example.ufsnavigationassistant.services.ServiceBuilder
-import com.mapbox.api.directions.v5.models.DirectionsResponse
 import com.mapbox.api.directions.v5.models.DirectionsRoute
 import com.mapbox.geojson.Point
-import com.mapbox.mapboxsdk.Mapbox
-/*import com.mapbox.services.android.navigation.ui.v5.NavigationLauncher
-import com.mapbox.services.android.navigation.ui.v5.NavigationLauncherOptions
-import com.mapbox.services.android.navigation.ui.v5.route.NavigationMapRoute
-import com.mapbox.services.android.navigation.v5.navigation.NavigationRoute*/
 import com.smarteist.autoimageslider.SliderView
 import kotlinx.android.synthetic.main.activity_building_details.*
 import kotlinx.android.synthetic.main.fragment_buildings.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import androidx.core.content.ContextCompat
 import com.mapbox.android.core.permissions.PermissionsListener
 import com.mapbox.android.core.permissions.PermissionsManager
+import android.util.Log
+import android.view.View
+import com.mapbox.api.directions.v5.DirectionsCriteria
+import com.mapbox.api.directions.v5.models.DirectionsResponse
+import com.mapbox.mapboxsdk.Mapbox
+import com.mapbox.mapboxsdk.maps.MapboxMap
+import com.mapbox.mapboxsdk.maps.Style
 import com.mapbox.services.android.navigation.ui.v5.NavigationLauncher
 import com.mapbox.services.android.navigation.ui.v5.NavigationLauncherOptions
-import com.mapbox.services.android.navigation.ui.v5.route.NavigationMapRoute
+import com.mapbox.services.android.navigation.v5.navigation.MapboxNavigation
 import com.mapbox.services.android.navigation.v5.navigation.NavigationRoute
-import android.location.LocationManager
-
-
-
 
 
 class BuildingDetailsActivity : AppCompatActivity(), BuildingLevelAdapter.OnItemClickListener,
@@ -48,12 +42,12 @@ class BuildingDetailsActivity : AppCompatActivity(), BuildingLevelAdapter.OnItem
 
     private var permissionsManager: PermissionsManager = PermissionsManager(this)
     private lateinit var buildingName: String
-    private var currentRoute: DirectionsRoute? = null
-    private var navigationMapRoute: NavigationMapRoute? = null
+    var navigation: MapboxNavigation? = null
+    private var originLocation: Location? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Mapbox.getInstance(this, getString(R.string.mapbox_access_token))
+        Mapbox.getInstance(applicationContext, getString(R.string.mapbox_access_token))
         setContentView(R.layout.activity_building_details)
 
         // set toolbar as support action bar and change title
@@ -79,50 +73,58 @@ class BuildingDetailsActivity : AppCompatActivity(), BuildingLevelAdapter.OnItem
         //Load building levels
         loadBuildingLevels(buildingData.building_id)
 
+        /***************************Mapbox Navigation****************************/
+        navigation = MapboxNavigation(applicationContext, getString(R.string.mapbox_access_token))
         //Request permission
         requestPermission()
-        //Fab Button to start turn-by-turn directions
+
+        //Floating Action Buttons visibility
+        walk_fab.visibility = View.GONE
+        car_fab.visibility = View.GONE
+        var isAllFabVisible = false
+        //Parent Fab Button to show other Fab buttons
         navigation_fab.setOnClickListener {
-            //Get route first
-            val location = Location(LocationManager.GPS_PROVIDER)
-            location.latitude = 23.5678
-            location.longitude = 34.456
-            val start = Location(LocationManager.GPS_PROVIDER)
-            val end = Location(LocationManager.GPS_PROVIDER)
-            start.longitude = -29.107234473985358
-            start.latitude = 26.187358635582477
-            end.longitude = -29.108502714940844
-            end.latitude = 26.187501910941766
-            val originPoint = Point.fromLngLat(start.longitude, start.latitude);
-            val destinationPoint = Point.fromLngLat(end.longitude, end.latitude)
-            getRoute(originPoint, destinationPoint)
-            Log.d("Passed", "Passed getRoute")
-            //Open turn-by-turn
-            if (currentRoute != null) {
-                Log.d("Inside", "Inside currentRoute")
-                Log.d("CurrentRoute:",currentRoute.toString())
-                val navigationLauncherOptions = NavigationLauncherOptions.builder() //1
-                    .directionsRoute(currentRoute) //2
-                    .shouldSimulateRoute(true) //3
-                    .build()
-                NavigationLauncher.startNavigation(this, navigationLauncherOptions) //4
-            }else {
-                Log.d("CRoute", "Current route empty")
+            isAllFabVisible = if (!isAllFabVisible) {
+                //When isAllFabVisible becomes true make all the action FABs VISIBLE.
+                walk_fab.show()
+                car_fab.show()
+                // make the boolean variable true as we have set the sub FABs visibility to GONE
+                  true
+            } else {
+                //When isAllFabVisible becomes true make all the action name FABs GONE.
+                walk_fab.hide()
+                car_fab.hide()
+                // make the boolean variable false as we have set the sub FABs visibility to GONE
+                 false
             }
-            /*val navigationIntent = Intent(this@BuildingDetailsActivity, BuildingNavigationActivity::class.java)
-            navigationIntent.putExtra("building_data", buildingData)
-            startActivity(navigationIntent)*/
-            //Toast.makeText(this@BuildingDetailsActivity, "Will start turn-by-turn directions to ${buildingData.building_name} building", Toast.LENGTH_LONG).show()
+
         }
+        //Walking Fab Button to start turn-by-turn directions
+        walk_fab.setOnClickListener {
+            //Set routing profile
+            val routingProfile = DirectionsCriteria.PROFILE_WALKING
 
-    }
+            //Build origin and destination Points for route construction
+            val startPoint = Point.fromLngLat(26.187378421174966, -29.10737947010742)
+            val endPoint =
+                Point.fromLngLat(buildingData.lon_coordinate, buildingData.lat_coordinate)
 
-    override fun onExplanationNeeded(permissionsToExplain: MutableList<String>?) {
-        //TODO("Not yet implemented")
-    }
+            //Call this function to start turn-by-turn navigation
+            getWalkingRoute(startPoint, endPoint, routingProfile)
+        }
+        //Car Fab Button to start turn-by-turn directions
+        car_fab.setOnClickListener {
+            //Set routing profile
+            val routingProfile = DirectionsCriteria.PROFILE_DRIVING
 
-    override fun onPermissionResult(granted: Boolean) {
-        //TODO("Not yet implemented")
+            //Build origin and destination Points for route construction
+            val startPoint = Point.fromLngLat(26.187378421174966, -29.10737947010742)
+            val endPoint =
+                Point.fromLngLat(buildingData.lon_coordinate, buildingData.lat_coordinate)
+
+            //Call this function to start turn-by-turn navigation
+            getWalkingRoute(startPoint, endPoint, routingProfile)
+        }
     }
 
     private fun setImageInSlider(images: ArrayList<String>, imageSlider: SliderView) {
@@ -194,41 +196,66 @@ class BuildingDetailsActivity : AppCompatActivity(), BuildingLevelAdapter.OnItem
         startActivity(roomsIntent)
     }
 
-    private fun getRoute(originPoint: Point, endPoint: Point) {
-        NavigationRoute.builder(this) //1
-            .accessToken(Mapbox.getAccessToken()!!) //2
-            .origin(originPoint) //3
-            .destination(endPoint) //4
-            .build() //5
-            .getRoute(object : Callback<DirectionsResponse> { //6
-                override fun onFailure(call: Call<DirectionsResponse>, t: Throwable) {
-                    Log.d("RouteFail", t.localizedMessage)
+    override fun onExplanationNeeded(permissionsToExplain: MutableList<String>?) {
+        //TODO("Not yet implemented")
+    }
+
+    override fun onPermissionResult(granted: Boolean) {
+        //TODO("Not yet implemented")
+    }
+
+    private fun getWalkingRoute(origin: Point, destination: Point, routingProfile: String) {
+        NavigationRoute.builder(applicationContext)
+            .accessToken(getString(R.string.mapbox_access_token))
+            .origin(origin)
+            .destination(destination)
+            .profile(routingProfile)
+            .build()
+            .getRoute(object : Callback<DirectionsResponse?> {
+                override fun onResponse(
+                    call: Call<DirectionsResponse?>,
+                    response: Response<DirectionsResponse?>
+                ) {
+                    if (response.body() == null) {
+                        Toast.makeText(
+                            this@BuildingDetailsActivity,
+                            "No routes found, there is connection error",
+                            Toast.LENGTH_LONG
+                        ).show()
+                        return
+                    } else if (response.body()!!.routes().size < 1) {
+                        Toast.makeText(
+                            this@BuildingDetailsActivity,
+                            "No routes found to the destination",
+                            Toast.LENGTH_LONG
+                        ).show()
+                        return
+                    }
+                    val route = response.body()!!.routes().first()
+                    //NavigationLauncherOptions
+                    val options = NavigationLauncherOptions.builder()
+                        .directionsRoute(route)
+                        .shouldSimulateRoute(true)
+                        .build()
+                    NavigationLauncher.startNavigation(this@BuildingDetailsActivity, options)
                 }
 
-                override fun onResponse(
-                    call: Call<DirectionsResponse>,
-                    response: Response<DirectionsResponse>
-                ) {
-                    /*if (navigationMapRoute != null) {
-                        navigationMapRoute?.updateRouteVisibilityTo(false)
-                    } else {
-                        navigationMapRoute = NavigationMapRoute(null, mapView, map)
-                    }*/
-
-                    currentRoute = response.body()?.routes()?.first()
-                    if (currentRoute != null) {
-                        Log.d("ResponseRoute", currentRoute.toString())
-                        navigationMapRoute?.addRoute(currentRoute)
-                    }
-
+                override fun onFailure(call: Call<DirectionsResponse?>, t: Throwable) {
+                    Toast.makeText(this@BuildingDetailsActivity, "Error: $t", Toast.LENGTH_LONG)
+                        .show()
                 }
             })
     }
 
-    private  fun requestPermission() {
+    private fun requestPermission() {
         if (!PermissionsManager.areLocationPermissionsGranted(this)) {
             permissionsManager = PermissionsManager(this)
             permissionsManager.requestLocationPermissions(this)
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        navigation!!.onDestroy() //End the navigation session
     }
 }

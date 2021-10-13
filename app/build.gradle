@@ -74,14 +74,9 @@ dependencies {
     implementation 'com.github.smarteist:autoimageslider:1.4.0'
 
     //Mapbox
-    //Legacy
-    /*implementation 'com.mapbox.mapboxsdk:mapbox-android-navigation-ui:0.42.6'
-    implementation 'com.mapbox.mapboxsdk:mapbox-android-telemetry:6.1.0'*/
+    implementation 'com.mapbox.mapboxsdk:mapbox-sdk-services:5.0.0'
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-navigation:0.42.6'
     implementation 'com.mapbox.mapboxsdk:mapbox-android-navigation-ui:0.42.6'
-
-    //new
-    //implementation "com.mapbox.navigation:ui:1.5.1"
-    //implementation "com.mapbox.navigation:core:1.5.1"
 
     //Default
     testImplementation 'junit:junit:4.+'
