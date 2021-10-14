@@ -1,9 +1,14 @@
 package com.example.ufsnavigationassistant.activities
 
+import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.graphics.Color
 import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Looper
 import android.widget.Toast
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -26,24 +31,43 @@ import com.mapbox.android.core.permissions.PermissionsListener
 import com.mapbox.android.core.permissions.PermissionsManager
 import android.util.Log
 import android.view.View
+import androidx.core.app.ActivityCompat
 import com.mapbox.api.directions.v5.DirectionsCriteria
 import com.mapbox.api.directions.v5.models.DirectionsResponse
 import com.mapbox.mapboxsdk.Mapbox
+import com.mapbox.mapboxsdk.location.LocationComponent
+import com.mapbox.mapboxsdk.location.LocationComponentActivationOptions
+import com.mapbox.mapboxsdk.location.LocationComponentOptions
+import com.mapbox.mapboxsdk.location.modes.CameraMode
+import com.mapbox.mapboxsdk.location.modes.RenderMode
 import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.Style
+import com.mapbox.mapboxsdk.maps.Style.OnStyleLoaded
 import com.mapbox.services.android.navigation.ui.v5.NavigationLauncher
 import com.mapbox.services.android.navigation.ui.v5.NavigationLauncherOptions
 import com.mapbox.services.android.navigation.v5.navigation.MapboxNavigation
 import com.mapbox.services.android.navigation.v5.navigation.NavigationRoute
+import java.security.AccessController.getContext
+import com.example.ufsnavigationassistant.MainActivity
+import com.example.ufsnavigationassistant.core.CurrentLocation
+import com.example.ufsnavigationassistant.core.PermissionUtils
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationResult
+import com.google.android.gms.location.LocationServices
 
+class BuildingDetailsActivity : AppCompatActivity(), BuildingLevelAdapter.OnItemClickListener {
 
-class BuildingDetailsActivity : AppCompatActivity(), BuildingLevelAdapter.OnItemClickListener,
-    PermissionsListener {
+    companion object {
+        private const val LOCATION_PERMISSION_REQUEST_CODE = 999
+    }
 
-    private var permissionsManager: PermissionsManager = PermissionsManager(this)
+    //private var permissionsManager: PermissionsManager = PermissionsManager(this)
     private lateinit var buildingName: String
     var navigation: MapboxNavigation? = null
     private var originLocation: Location? = null
+    private var originLat: Double = 0.0
+    private var originLon: Double = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,9 +98,10 @@ class BuildingDetailsActivity : AppCompatActivity(), BuildingLevelAdapter.OnItem
         loadBuildingLevels(buildingData.building_id)
 
         /***************************Mapbox Navigation****************************/
+
         navigation = MapboxNavigation(applicationContext, getString(R.string.mapbox_access_token))
         //Request permission
-        requestPermission()
+        //requestPermission()
 
         //Floating Action Buttons visibility
         walk_fab.visibility = View.GONE
@@ -105,7 +130,8 @@ class BuildingDetailsActivity : AppCompatActivity(), BuildingLevelAdapter.OnItem
             val routingProfile = DirectionsCriteria.PROFILE_WALKING
 
             //Build origin and destination Points for route construction
-            val startPoint = Point.fromLngLat(26.187378421174966, -29.10737947010742)
+            //val startPoint = Point.fromLngLat(26.187378421174966, -29.10737947010742)
+            val startPoint = Point.fromLngLat(originLocation!!.longitude, originLocation!!.latitude)
             val endPoint =
                 Point.fromLngLat(buildingData.lon_coordinate, buildingData.lat_coordinate)
 
@@ -118,7 +144,7 @@ class BuildingDetailsActivity : AppCompatActivity(), BuildingLevelAdapter.OnItem
             val routingProfile = DirectionsCriteria.PROFILE_DRIVING
 
             //Build origin and destination Points for route construction
-            val startPoint = Point.fromLngLat(26.187378421174966, -29.10737947010742)
+            val startPoint = Point.fromLngLat(originLocation!!.longitude, originLocation!!.latitude)
             val endPoint =
                 Point.fromLngLat(buildingData.lon_coordinate, buildingData.lat_coordinate)
 
@@ -196,14 +222,6 @@ class BuildingDetailsActivity : AppCompatActivity(), BuildingLevelAdapter.OnItem
         startActivity(roomsIntent)
     }
 
-    override fun onExplanationNeeded(permissionsToExplain: MutableList<String>?) {
-        //TODO("Not yet implemented")
-    }
-
-    override fun onPermissionResult(granted: Boolean) {
-        //TODO("Not yet implemented")
-    }
-
     private fun getWalkingRoute(origin: Point, destination: Point, routingProfile: String) {
         NavigationRoute.builder(applicationContext)
             .accessToken(getString(R.string.mapbox_access_token))
@@ -241,21 +259,88 @@ class BuildingDetailsActivity : AppCompatActivity(), BuildingLevelAdapter.OnItem
                 }
 
                 override fun onFailure(call: Call<DirectionsResponse?>, t: Throwable) {
-                    Toast.makeText(this@BuildingDetailsActivity, "Error: $t", Toast.LENGTH_LONG)
-                        .show()
+                    Toast.makeText(this@BuildingDetailsActivity, "Error: $t", Toast.LENGTH_LONG).show()
                 }
             })
     }
 
-    private fun requestPermission() {
-        if (!PermissionsManager.areLocationPermissionsGranted(this)) {
-            permissionsManager = PermissionsManager(this)
-            permissionsManager.requestLocationPermissions(this)
-        }
-    }
-
+    /*************************Mapbox Location services *******************************/
     override fun onDestroy() {
         super.onDestroy()
         navigation!!.onDestroy() //End the navigation session
     }
+
+    /****************************** Google API Location services for current Location*********************/
+
+    @SuppressLint("MissingPermission")
+    private fun setUpLocationListener() {
+        val fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
+        // for getting the current location update after every 2 seconds with high accuracy
+        val locationRequest = LocationRequest().setInterval(2000).setFastestInterval(2000)
+            .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+        fusedLocationProviderClient.requestLocationUpdates(
+            locationRequest,
+            object : LocationCallback() {
+                override fun onLocationResult(locationResult: LocationResult) {
+                    super.onLocationResult(locationResult)
+                    for (location in locationResult.locations) {
+                        originLocation = location
+                    }
+                }
+            },
+            Looper.myLooper()
+        )
+    }
+
+
+    override fun onStart() {
+        super.onStart()
+        when {
+            PermissionUtils.isAccessFineLocationGranted(this) -> {
+                when {
+                    PermissionUtils.isLocationEnabled(this) -> {
+                        setUpLocationListener()
+                    }
+                    else -> {
+                        PermissionUtils.showGPSNotEnabledDialog(this)
+                    }
+                }
+            }
+            else -> {
+                PermissionUtils.requestAccessFineLocationPermission(
+                    this,
+                    LOCATION_PERMISSION_REQUEST_CODE
+                )
+            }
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+            LOCATION_PERMISSION_REQUEST_CODE -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    when {
+                        PermissionUtils.isLocationEnabled(this) -> {
+                            setUpLocationListener()
+                        }
+                        else -> {
+                            PermissionUtils.showGPSNotEnabledDialog(this)
+                        }
+                    }
+                } else {
+                    Toast.makeText(
+                        this,
+                        getString(R.string.location_permission_not_granted),
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+        }
+    }
+
 }

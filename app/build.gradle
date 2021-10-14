@@ -78,6 +78,9 @@ dependencies {
     implementation 'com.mapbox.mapboxsdk:mapbox-android-navigation:0.42.6'
     implementation 'com.mapbox.mapboxsdk:mapbox-android-navigation-ui:0.42.6'
 
+    //Google play services
+    implementation 'com.google.android.gms:play-services-location:18.0.0'
+
     //Default
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
