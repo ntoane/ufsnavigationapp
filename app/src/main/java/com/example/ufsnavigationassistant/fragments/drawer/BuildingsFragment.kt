@@ -32,10 +32,6 @@ class BuildingsFragment : Fragment(layout.fragment_buildings), BuildingAdapter.O
         val buildingIntent = Intent(context, BuildingDetailsActivity::class.java)
         buildingIntent.putExtra("building_data", building)
         startActivity(buildingIntent)
-
-        //Toast.makeText(activity, "Building name ${building.building_name} Clicked", Toast.LENGTH_SHORT).show()
-        //Log.d("Click Listener", "Building name ${building.building_name} Clicked")
-        //Log.d("Images", building.images[0].url.toString())
     }
 
     private fun loadBuildings() {
@@ -65,7 +61,7 @@ class BuildingsFragment : Fragment(layout.fragment_buildings), BuildingAdapter.O
                         buildingRecycler.addItemDecoration(this)
                     }
                 } else { // Application-level failure
-                    Toast.makeText(activity, "Failed to retrieve buildings", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, "There are no buildings for this category", Toast.LENGTH_LONG).show()
                 }
             }
 

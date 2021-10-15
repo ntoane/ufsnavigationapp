@@ -28,16 +28,8 @@ class MainActivity : AppCompatActivity() {
                 R.id.accountFragment,
                 R.id.buildingsFragment,
                 R.id.parkingsFragment,
-                R.id.officesFragment,
-                R.id.hallsFragment,
-                R.id.studyFragment,
                 R.id.healthFragment,
                 R.id.eatingFragment,
-                R.id.shopsFragment,
-                R.id.sportsFragment,
-                R.id.femaleToiletsFragment,
-                R.id.maleToiletsFragment,
-                R.id.hostelsFragment
             ),
             drawer_layout
         )

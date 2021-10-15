@@ -14,19 +14,17 @@
         android:theme="@style/Theme.UFSNavigationAssistant"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".activities.ParkingDetailsActivity"
+            android:exported="true" />
+        <activity
             android:name=".activities.StartNavigationActivity"
             android:exported="true" />
         <activity
-            android:name=".activities.BuildingNavigationActivity"
+            android:name=".activities.BuildingLevelRoomsActivity"
             android:exported="true" />
         <activity
-            android:name=".activities.BuildingLevelRoomsActivity"
-            android:exported="true"
-            android:parentActivityName=".activities.BuildingDetailsActivity" />
-        <activity
             android:name=".activities.BuildingDetailsActivity"
-            android:exported="true"
-            android:parentActivityName=".MainActivity" />
+            android:exported="true" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

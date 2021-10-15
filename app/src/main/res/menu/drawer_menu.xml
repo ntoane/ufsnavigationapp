@@ -15,24 +15,6 @@
             android:icon="@drawable/parking"
             android:title="@string/menu_parking" />
     </group>
-    <group android:checkableBehavior="none" android:id="@+id/group3">
-        <item
-            android:id="@+id/officesFragment"
-            android:icon="@drawable/office"
-            android:title="@string/menu_office" />
-    </group>
-    <group android:checkableBehavior="none" android:id="@+id/group4">
-        <item
-            android:id="@+id/hallsFragment"
-            android:icon="@drawable/lecture_hall"
-            android:title="@string/halls" />
-    </group>
-    <group android:checkableBehavior="none" android:id="@+id/group5">
-        <item
-            android:id="@+id/studyFragment"
-            android:icon="@drawable/study_places"
-            android:title="@string/study" />
-    </group>
     <group android:checkableBehavior="none" android:id="@+id/group6">
         <item
             android:id="@+id/healthFragment"
@@ -44,35 +26,5 @@
             android:id="@+id/eatingFragment"
             android:icon="@drawable/eating_places"
             android:title="@string/eating" />
-    </group>
-    <group android:checkableBehavior="none" android:id="@+id/group8">
-        <item
-            android:id="@+id/shopsFragment"
-            android:icon="@drawable/shops"
-            android:title="@string/shops" />
-    </group>
-    <group android:checkableBehavior="none" android:id="@+id/group9">
-        <item
-            android:id="@+id/sportsFragment"
-            android:icon="@drawable/sports"
-            android:title="@string/sports" />
-    </group>
-    <group android:checkableBehavior="none" android:id="@+id/group10">
-        <item
-            android:id="@+id/femaleToiletsFragment"
-            android:icon="@drawable/toilet"
-            android:title="@string/femaleToilets" />
-    </group>
-    <group android:checkableBehavior="none" android:id="@+id/group11">
-        <item
-            android:id="@+id/maleToiletsFragment"
-            android:icon="@drawable/toilet"
-            android:title="@string/maleToilets" />
-    </group>
-    <group android:checkableBehavior="none" android:id="@+id/group12">
-        <item
-            android:id="@+id/hostelsFragment"
-            android:icon="@drawable/building"
-            android:title="@string/hostels" />
     </group>
 </menu>

@@ -27,4 +27,11 @@ interface BuildingService {
         @Path("building_id") building_id: Int,
         @Path("floor_num") floor_num: Int
     ): Call<List<LevelRoom>>
+
+    //Get other buildings
+    @GET("building/health_services")
+    fun getHealthServices(): Call<List<Building>>
+
+    @GET("building/eating_places")
+    fun getEatingPlaces(): Call<List<Building>>
 }

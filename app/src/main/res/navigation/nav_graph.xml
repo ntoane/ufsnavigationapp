@@ -32,21 +32,6 @@
         android:label="Parkings"
         tools:layout="@layout/fragment_parkings" />
     <fragment
-        android:id="@+id/officesFragment"
-        android:name="com.example.ufsnavigationassistant.fragments.drawer.OfficesFragment"
-        android:label="Offices"
-        tools:layout="@layout/fragment_offices" />
-    <fragment
-        android:id="@+id/hallsFragment"
-        android:name="com.example.ufsnavigationassistant.fragments.drawer.HallsFragment"
-        android:label="Lecture Halls"
-        tools:layout="@layout/fragment_halls" />
-    <fragment
-        android:id="@+id/studyFragment"
-        android:name="com.example.ufsnavigationassistant.fragments.drawer.StudyFragment"
-        android:label="Study Places"
-        tools:layout="@layout/fragment_study" />
-    <fragment
         android:id="@+id/healthFragment"
         android:name="com.example.ufsnavigationassistant.fragments.drawer.HealthFragment"
         android:label="Health Services"
@@ -56,29 +41,4 @@
         android:name="com.example.ufsnavigationassistant.fragments.drawer.EatingFragment"
         android:label="Eating Places"
         tools:layout="@layout/fragment_eating" />
-    <fragment
-        android:id="@+id/shopsFragment"
-        android:name="com.example.ufsnavigationassistant.fragments.drawer.ShopsFragment"
-        android:label="Shops"
-        tools:layout="@layout/fragment_shops" />
-    <fragment
-        android:id="@+id/sportsFragment"
-        android:name="com.example.ufsnavigationassistant.fragments.drawer.SportsFragment"
-        android:label="Sports"
-        tools:layout="@layout/fragment_sports" />
-    <fragment
-        android:id="@+id/femaleToiletsFragment"
-        android:name="com.example.ufsnavigationassistant.fragments.drawer.FemaleToilesFragment"
-        android:label="Female Toilets"
-        tools:layout="@layout/fragment_female_toilets" />
-    <fragment
-        android:id="@+id/maleToiletsFragment"
-        android:name="com.example.ufsnavigationassistant.fragments.drawer.MaleToiletsFragment"
-        android:label="Male Toilets"
-        tools:layout="@layout/fragment_male_toilets" />
-    <fragment
-        android:id="@+id/hostelsFragment"
-        android:name="com.example.ufsnavigationassistant.fragments.drawer.HostelsFragment"
-        android:label="Hostels"
-        tools:layout="@layout/fragment_hostels" />
 </navigation>

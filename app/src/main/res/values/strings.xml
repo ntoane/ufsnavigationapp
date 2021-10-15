@@ -4,7 +4,7 @@
         pk.eyJ1IjoiZGFjdWJhIiwiYSI6ImNrbm0yMXNrMjBremUybnByaHo1bG4wZTMifQ.Ae4b2QIeBsT3SV5Nr8sRqA
     </string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="menu_building">Buildings</string>
+    <string name="menu_building">All Buildings</string>
     <string name="menu_parking">Parkings</string>
     <string name="menu_office">Offices</string>
     <string name="halls">Lecture Halls</string>

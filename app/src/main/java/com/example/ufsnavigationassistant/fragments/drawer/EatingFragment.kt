@@ -1,60 +1,78 @@
 package com.example.ufsnavigationassistant.fragments.drawer
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ufsnavigationassistant.R
+import com.example.ufsnavigationassistant.activities.BuildingDetailsActivity
+import com.example.ufsnavigationassistant.core.BuildingAdapter
+import com.example.ufsnavigationassistant.models.Building
+import com.example.ufsnavigationassistant.services.BuildingService
+import com.example.ufsnavigationassistant.services.ServiceBuilder
+import kotlinx.android.synthetic.main.fragment_eating.*
+import kotlinx.android.synthetic.main.fragment_health.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+class EatingFragment : Fragment(R.layout.fragment_eating),  BuildingAdapter.OnItemClickListener {
 
-/**
- * A simple [Fragment] subclass.
- * Use the [EatingFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class EatingFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+        loadBuildings()
+
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_eating, container, false)
+    override fun onItemClick(building: Building) {
+        //An Intent to open building details
+        val buildingIntent = Intent(context, BuildingDetailsActivity::class.java)
+        buildingIntent.putExtra("building_data", building)
+        startActivity(buildingIntent)
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment EatingFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            EatingFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    private fun loadBuildings() {
+        val buildingService: BuildingService = ServiceBuilder.buildService(BuildingService::class.java)
+        val requestCall: Call<List<Building>> = buildingService.getEatingPlaces()
+
+        //Method is executed if Http response is received
+        //Status code will decide if Http Response is a Success or Failure
+        requestCall.enqueue(object : Callback<List<Building>> {
+            override fun onResponse(call: Call<List<Building>>, response: Response<List<Building>>) {
+                if(response.isSuccessful) {
+                    //Get List from http response body
+                    val buildingList: List<Building> = response.body()!!
+                    //Log.d("List Build", buildingList.toString())
+                    //Attach the list to the recycler view
+                    eatingBuildingRecycler.adapter = BuildingAdapter(buildingList, this@EatingFragment)
+                    eatingBuildingRecycler.layoutManager = LinearLayoutManager(context)
+                    eatingBuildingRecycler.setHasFixedSize(true)
+
+                    //Attach ItemDecorator to draw lines between list items
+                    DividerItemDecoration(
+                        context, // context
+                        (eatingBuildingRecycler.layoutManager as LinearLayoutManager).orientation
+                    ).apply {
+                        // add divider item decoration to recycler view
+                        // this will show divider line between items
+                        eatingBuildingRecycler.addItemDecoration(this)
+                    }
+                } else { // Application-level failure
+                    Toast.makeText(activity, "There are no buildings for this category", Toast.LENGTH_LONG).show()
                 }
             }
+
+            //Invoked in case of network error or establishing connection with the server
+            //Or error creating Http Request or Error Processing Http Response
+            override fun onFailure(call: Call<List<Building>>, t: Throwable) {
+                Toast.makeText(activity, "Error occurred: $t", Toast.LENGTH_LONG).show()
+            }
+        })
     }
 }

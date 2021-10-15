@@ -33,7 +33,7 @@ class BuildingLevelRoomsActivity : AppCompatActivity(), LevelRoomAdapter.OnItemC
 
         // set toolbar as support action bar and change title
         supportActionBar!!.title = "Level $levelNum($buildingName)"
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        //supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
         //Load rooms and send to adapter
         loadBuildingLevelRooms(buildingId, levelNum)
