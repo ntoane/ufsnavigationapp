@@ -25,7 +25,8 @@ class MainActivity : AppCompatActivity() {
             setOf(
                 R.id.homeFragment,
                 R.id.whereFragment,
-                R.id.accountFragment,
+                R.id.eventFragment,
+                R.id.timetableFragment,
                 R.id.buildingsFragment,
                 R.id.parkingsFragment,
                 R.id.healthFragment,

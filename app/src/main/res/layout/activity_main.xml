@@ -32,7 +32,8 @@
             android:background="@drawable/page_background"
             app:itemTextAppearanceActive="@style/BottomNavigationView.Active"
             app:itemTextAppearanceInactive="@style/BottomNavigationView"
-            app:menu="@menu/bottom_nav" />
+            app:menu="@menu/bottom_nav"
+            app:labelVisibilityMode="labeled"/>
     </RelativeLayout>
 
     <com.google.android.material.navigation.NavigationView

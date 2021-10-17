@@ -16,10 +16,15 @@
         android:label="My Location"
         tools:layout="@layout/fragment_where" />
     <fragment
-        android:id="@+id/accountFragment"
-        android:name="com.example.ufsnavigationassistant.fragments.bottomnav.AccountFragment"
-        android:label="Account"
-        tools:layout="@layout/fragment_account" />
+        android:id="@+id/eventFragment"
+        android:name="com.example.ufsnavigationassistant.fragments.bottomnav.EventFragment"
+        android:label="Events"
+        tools:layout="@layout/fragment_event" />
+    <fragment
+        android:id="@+id/timetableFragment"
+        android:name="com.example.ufsnavigationassistant.fragments.bottomnav.TimetableFragment"
+        android:label="Timetable"
+        tools:layout="@layout/fragment_timetable" />
 
     <fragment
         android:id="@+id/buildingsFragment"

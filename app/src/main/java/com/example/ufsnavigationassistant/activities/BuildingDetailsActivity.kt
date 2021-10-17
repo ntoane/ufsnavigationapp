@@ -110,8 +110,7 @@ class BuildingDetailsActivity : AppCompatActivity(), BuildingLevelAdapter.OnItem
             //Build origin and destination Points for route construction
             //val startPoint = Point.fromLngLat(26.187378421174966, -29.10737947010742)
             val startPoint = Point.fromLngLat(originLocation!!.longitude, originLocation!!.latitude)
-            val endPoint =
-                Point.fromLngLat(buildingData.lon_coordinate, buildingData.lat_coordinate)
+            val endPoint = Point.fromLngLat(buildingData.lon_coordinate, buildingData.lat_coordinate)
 
             //Call this function to start turn-by-turn navigation
             getRoute(startPoint, endPoint, routingProfile)

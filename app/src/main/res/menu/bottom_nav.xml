@@ -9,7 +9,11 @@
         android:title="Where Am I"
         android:icon="@drawable/ic_baseline_location_on_24"/>
     <item
-        android:id="@+id/accountFragment"
-        android:title="Account"
-        android:icon="@drawable/ic_baseline_account_circle_24"/>
+        android:id="@+id/eventFragment"
+        android:title="Events"
+        android:icon="@drawable/ic_baseline_event_available"/>
+    <item
+        android:id="@+id/timetableFragment"
+        android:title="Timetable"
+        android:icon="@drawable/ic_baseline_schedule"/>
 </menu>

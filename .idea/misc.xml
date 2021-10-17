@@ -21,15 +21,18 @@
         <entry key="app/src/main/res/layout/activity_building_level_rooms.xml" value="0.27760416666666665" />
         <entry key="app/src/main/res/layout/activity_building_navigation.xml" value="0.2640625" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_navigation.xml" value="0.27760416666666665" />
         <entry key="app/src/main/res/layout/activity_parking_details.xml" value="0.27760416666666665" />
         <entry key="app/src/main/res/layout/activity_start_navigation.xml" value="0.2630208333333333" />
         <entry key="app/src/main/res/layout/building_level_list_item.xml" value="0.27760416666666665" />
         <entry key="app/src/main/res/layout/building_list_item.xml" value="0.27291666666666664" />
         <entry key="app/src/main/res/layout/building_room_list_item.xml" value="0.27760416666666665" />
         <entry key="app/src/main/res/layout/drawer_header.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/event_list_item.xml" value="0.27760416666666665" />
         <entry key="app/src/main/res/layout/fragment_account.xml" value="0.20742753623188406" />
         <entry key="app/src/main/res/layout/fragment_buildings.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_eating.xml" value="0.20742753623188406" />
+        <entry key="app/src/main/res/layout/fragment_event.xml" value="0.27760416666666665" />
         <entry key="app/src/main/res/layout/fragment_female_toilets.xml" value="0.20742753623188406" />
         <entry key="app/src/main/res/layout/fragment_halls.xml" value="0.20742753623188406" />
         <entry key="app/src/main/res/layout/fragment_health.xml" value="0.20742753623188406" />
@@ -44,6 +47,7 @@
         <entry key="app/src/main/res/layout/fragment_where.xml" value="0.20742753623188406" />
         <entry key="app/src/main/res/layout/image_holder.xml" value="0.27760416666666665" />
         <entry key="app/src/main/res/layout/mapbox_activity_turn_by_turn_experience.xml" value="0.28177083333333336" />
+        <entry key="app/src/main/res/menu/bottom_nav.xml" value="0.27760416666666665" />
         <entry key="app/src/main/res/menu/drawer_menu.xml" value="0.27291666666666664" />
       </map>
     </option>
