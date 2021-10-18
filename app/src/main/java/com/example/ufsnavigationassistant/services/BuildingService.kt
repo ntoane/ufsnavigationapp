@@ -4,6 +4,7 @@ import retrofit2.Call
 import com.example.ufsnavigationassistant.models.Building
 import com.example.ufsnavigationassistant.models.BuildingLevel
 import com.example.ufsnavigationassistant.models.LevelRoom
+import com.example.ufsnavigationassistant.models.RoomDirection
 import retrofit2.http.GET
 import retrofit2.http.Path
 
@@ -34,4 +35,7 @@ interface BuildingService {
 
     @GET("building/eating_places")
     fun getEatingPlaces(): Call<List<Building>>
+
+    @GET("building/room_directions//{room_id}")
+    fun getRoomDirections(@Path("room_id") room_id: Int): Call<List<RoomDirection>>
 }

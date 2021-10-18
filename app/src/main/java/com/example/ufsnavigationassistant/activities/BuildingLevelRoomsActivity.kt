@@ -1,5 +1,6 @@
 package com.example.ufsnavigationassistant.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -119,8 +120,11 @@ class BuildingLevelRoomsActivity : AppCompatActivity(), LevelRoomAdapter.OnItemC
 
 
     override fun onItemClick(room: LevelRoom) {
-        Toast.makeText(this@BuildingLevelRoomsActivity, " clicked", Toast.LENGTH_LONG).show()
-        Log.d("Room", room.room_name.toString()+" clicked")
+        val directionIntent = Intent(this, RoomDirectionActivity::class.java)
+        directionIntent.putExtra("room", room)
+        startActivity(directionIntent)
+        //Toast.makeText(this@BuildingLevelRoomsActivity, " clicked", Toast.LENGTH_LONG).show()
+        //Log.d("Room", room.room_name.toString()+" clicked")
     }
 
 }

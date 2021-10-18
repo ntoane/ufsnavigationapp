@@ -52,4 +52,6 @@
     <string name="start_nav">START NAVIGATION</string>
     <string name="tv_destination">Tap here to return to home screen</string>
     <string name="home">Home</string>
+    <string name="entrance">Entrance name</string>
+    <string name="direction_text">Directions</string>
 </resources>
