@@ -18,6 +18,8 @@
     <string name="hostels">Hostels</string>
     <string name="nav_header_title">Header title</string>
     <string name="login">Login</string>
+    <string name="logout">Logout</string>
+    <string name="username">Username</string>
     <string name="welcome_heading">UFS Campus Navigation Assistant</string>
     <string name="welcome_subheading">
         This application helps you to find the way around the campus. You can browse through categories on the left menu.
@@ -54,4 +56,9 @@
     <string name="home">Home</string>
     <string name="entrance">Entrance name</string>
     <string name="direction_text">Directions</string>
+
+    <string name="login_form_title">Login</string>
+    <string name="login_form_username">Username</string>
+    <string name="login_form_password">Password</string>
+    <string name="login_form_login">LOGIN</string>
 </resources>

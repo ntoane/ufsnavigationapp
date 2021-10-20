@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="176dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/dark_blue"
     android:gravity="bottom"
     android:orientation="vertical"
@@ -15,12 +15,34 @@
         android:contentDescription="@string/app_name"
         android:src="@drawable/ufs_app_logo" />
 
-    <Button
-        android:id="@+id/login_btn"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:text="@string/login"
-        app:icon="@drawable/login" />
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/username"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:layout_marginEnd="10dp"/>
+
+        <Button
+            android:id="@+id/login_launch_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="@string/login"
+            app:icon="@drawable/login" />
+
+        <Button
+            android:id="@+id/logout_launch_btn"
+            android:layout_width="37dp"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            app:icon="@drawable/ic_logout" />
+    </LinearLayout>
 
 </LinearLayout>

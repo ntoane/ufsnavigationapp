@@ -20,6 +20,7 @@
         <entry key="app/src/main/res/layout/activity_building_details.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_building_level_rooms.xml" value="0.27760416666666665" />
         <entry key="app/src/main/res/layout/activity_building_navigation.xml" value="0.2640625" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.27760416666666665" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_navigation.xml" value="0.27760416666666665" />
         <entry key="app/src/main/res/layout/activity_parking_details.xml" value="0.27760416666666665" />
