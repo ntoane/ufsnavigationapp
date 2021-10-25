@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/event_card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -18,10 +19,10 @@
 
             <!-- Title, secondary and supporting text -->
             <TextView
-                android:id="@+id/event_name"
+                android:id="@+id/module_code"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/event_name"
+                android:text="@string/course_name"
                 android:textColor="@color/color_primary"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -39,7 +40,25 @@
                     android:src="@drawable/ic_baseline_location_on_24" />
 
                 <TextView
-                    android:id="@+id/event_building"
+                    android:id="@+id/timetable_room"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/room_name"
+                    android:textAppearance="?attr/textAppearanceBody1"
+                    android:textColor="?android:attr/textColorSecondary"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:text="@string/comma"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    android:textColor="?android:attr/textColorSecondary"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/timetable_building"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/building_name"
@@ -61,10 +80,10 @@
                     android:src="@drawable/ic_baseline_date_range" />
 
                 <TextView
-                    android:id="@+id/event_date"
+                    android:id="@+id/timetable_day"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/date"
+                    android:text="@string/timetable_day"
                     android:textAppearance="?attr/textAppearanceBody1"
                     android:textColor="?android:attr/textColorSecondary"
                     android:textStyle="bold" />
@@ -88,7 +107,7 @@
                         android:src="@drawable/ic_baseline_schedule" />
 
                     <TextView
-                        android:id="@+id/start_time"
+                        android:id="@+id/timetable_start_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="5dp"
@@ -107,7 +126,7 @@
                         android:textStyle="bold"/>
 
                     <TextView
-                        android:id="@+id/end_time"
+                        android:id="@+id/timetable_end_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/end_time"
@@ -123,16 +142,20 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
             android:layout_margin="8dp"
             android:orientation="horizontal">
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/event_start_nav"
-                style="?attr/borderlessButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/start_nav" />
+                android:id="@+id/btn_delete_timetable"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:insetLeft="0dp"
+                android:insetTop="0dp"
+                android:insetRight="0dp"
+                android:insetBottom="0dp"
+                app:icon="@drawable/ic_baseline_delete"
+                app:iconGravity="textStart"
+                app:iconPadding="0dp" />
 
         </LinearLayout>
 

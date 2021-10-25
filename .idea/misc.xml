@@ -10,6 +10,7 @@
         <entry key="app/src/main/res/drawable/health_services.xml" value="0.16666666666666666" />
         <entry key="app/src/main/res/drawable/hospital.xml" value="0.16666666666666666" />
         <entry key="app/src/main/res/drawable/ic_apartment_24.xml" value="0.16302083333333334" />
+        <entry key="app/src/main/res/drawable/ic_baseline_add_circle.xml" value="0.25925925925925924" />
         <entry key="app/src/main/res/drawable/ic_location_arrow_solid.xml" value="0.16302083333333334" />
         <entry key="app/src/main/res/drawable/ic_my_location.xml" value="0.28703703703703703" />
         <entry key="app/src/main/res/drawable/lecture_hall.xml" value="0.2814814814814815" />
@@ -20,6 +21,7 @@
         <entry key="app/src/main/res/layout/activity_building_details.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_building_level_rooms.xml" value="0.27760416666666665" />
         <entry key="app/src/main/res/layout/activity_building_navigation.xml" value="0.2640625" />
+        <entry key="app/src/main/res/layout/activity_create_timetable.xml" value="0.27760416666666665" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.27760416666666665" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_navigation.xml" value="0.27760416666666665" />
@@ -46,12 +48,15 @@
         <entry key="app/src/main/res/layout/fragment_shops.xml" value="0.20742753623188406" />
         <entry key="app/src/main/res/layout/fragment_sports.xml" value="0.20742753623188406" />
         <entry key="app/src/main/res/layout/fragment_study.xml" value="0.20742753623188406" />
+        <entry key="app/src/main/res/layout/fragment_timetable.xml" value="0.27760416666666665" />
         <entry key="app/src/main/res/layout/fragment_where.xml" value="0.20742753623188406" />
         <entry key="app/src/main/res/layout/image_holder.xml" value="0.27760416666666665" />
         <entry key="app/src/main/res/layout/mapbox_activity_turn_by_turn_experience.xml" value="0.28177083333333336" />
         <entry key="app/src/main/res/layout/room_direction_list.xml" value="0.27760416666666665" />
+        <entry key="app/src/main/res/layout/timetable_list_item.xml" value="0.27760416666666665" />
         <entry key="app/src/main/res/menu/bottom_nav.xml" value="0.27760416666666665" />
         <entry key="app/src/main/res/menu/drawer_menu.xml" value="0.27291666666666664" />
+        <entry key="app/src/main/res/menu/timetable_menu.xml" value="0.27760416666666665" />
       </map>
     </option>
   </component>

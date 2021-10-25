@@ -79,6 +79,15 @@ class MainActivity : AppCompatActivity() {
         val sentToken = Token()
         sentToken.token = readToken
         authUser(sentToken)
+
+        logoutBtn.setOnClickListener {
+            //delete key before adding new key on login
+            sharedPreferences.edit().remove("token").apply()
+            sharedPreferences.edit().remove("std_number").apply()
+            finish()
+            startActivity(intent)
+            Toast.makeText(this, "You are logged out successfully", Toast.LENGTH_SHORT).show()
+        }
     }
 
     //open drawer when drawer icon clicked and back btn press
@@ -112,8 +121,8 @@ class MainActivity : AppCompatActivity() {
                     loginBtn.visibility = View.VISIBLE
                     logoutBtn.visibility = View.GONE
                     username.visibility = View.GONE
-                    Toast.makeText(this@MainActivity, "User Unauthorized", Toast.LENGTH_LONG)
-                        .show()
+                    //Toast.makeText(this@MainActivity, "User Unauthorized", Toast.LENGTH_LONG)
+                        //.show()
                 }
             }
 

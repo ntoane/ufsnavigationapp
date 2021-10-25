@@ -7,7 +7,8 @@ data class Login(
 
 data class Token(
     var message: String? = null,
-    var token: String? = null
+    var token: String? = null,
+    var std_number: Int = 0
 )
 
 data class AuthUser(

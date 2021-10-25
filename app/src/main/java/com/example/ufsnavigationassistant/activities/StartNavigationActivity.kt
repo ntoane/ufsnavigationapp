@@ -58,8 +58,8 @@ class StartNavigationActivity : AppCompatActivity() {
         navigation = MapboxNavigation(applicationContext, getString(R.string.mapbox_access_token))
 
         //Build origin and destination Points for route construction
-        //val startPoint = Point.fromLngLat(26.187378421174966, -29.10737947010742)
-        val startPoint = Point.fromLngLat(originLocation!!.longitude, originLocation!!.latitude)
+        val startPoint = Point.fromLngLat(26.187378421174966, -29.10737947010742)
+        //val startPoint = Point.fromLngLat(originLocation!!.longitude, originLocation!!.latitude)
         val endPoint = Point.fromLngLat(longitude, latitude)
 
         btn_home.visibility = View.GONE

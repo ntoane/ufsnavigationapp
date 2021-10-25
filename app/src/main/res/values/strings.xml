@@ -51,6 +51,7 @@
     <string name="start_time">Start time</string>
     <string name="end_time">End time</string>
     <string name="dash">-</string>
+    <string name="comma">,</string>
     <string name="start_nav">START NAVIGATION</string>
     <string name="tv_destination">Tap here to return to home screen</string>
     <string name="home">Home</string>
@@ -61,4 +62,18 @@
     <string name="login_form_username">Username</string>
     <string name="login_form_password">Password</string>
     <string name="login_form_login">LOGIN</string>
+
+    <string name="course_name">Course Name</string>
+    <string name="timetable_day">Day</string>
+    <string name="level_name">Level name</string>
+    <string name="next_class">Next Class</string>
+    <string name="all_classes">All Classes</string>
+
+    <string-array name="Days">
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+    </string-array>
 </resources>

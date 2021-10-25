@@ -50,9 +50,11 @@ class LoginActivity : AppCompatActivity() {
                             //Store token data to shared preference
                             val prefs = customPreference(this@LoginActivity, CUSTOM_PREF_NAME)
                             prefs.edit().remove("token").apply()//delete key before adding new key on login
+                            prefs.edit().remove("std_number").apply()
 
                             var editor = prefs.edit()
                             editor.putString("token",tokenResponse?.token)
+                            editor.putInt("std_number", tokenResponse!!.std_number)
                             editor.apply()
 
                             //Go to MainActivity screen

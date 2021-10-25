@@ -14,6 +14,12 @@
         android:theme="@style/Theme.UFSNavigationAssistant"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".activities.StartNavigationActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activities.CreateTimetableActivity"
+            android:exported="true" />
+        <activity
             android:name=".activities.LoginActivity"
             android:exported="true" />
         <activity
