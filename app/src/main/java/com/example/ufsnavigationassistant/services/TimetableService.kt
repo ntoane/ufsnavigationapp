@@ -7,8 +7,8 @@ import retrofit2.http.*
 interface TimetableService {
 
     //POST annotation to create new timetable entry
-    //@POST("timetable/create_timetable")
-    //fun createTimetable(@Body("std_number") std_number: In)
+    @POST("timetable/create_timetable")
+    fun createTimetable(@Body newTimetable: CreateTimetable): Call<CreateTimetable>
 
     //GET annotation for endpoint to get buildings
     @GET("timetable/student_timetable/{std_number}")
@@ -19,4 +19,7 @@ interface TimetableService {
 
     @DELETE("timetable/delete_timetable_entry/{timetable_id}")
     fun deleteTimetable(@Path("timetable_id") timetable_id: Int): Call<DeleteTimetable>
+
+    @GET("timetable/module_codes")
+    fun getModuleCodes(): Call<List<ModuleCode>>
 }

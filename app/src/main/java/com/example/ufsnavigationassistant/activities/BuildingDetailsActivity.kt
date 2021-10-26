@@ -9,6 +9,7 @@ import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Looper
+import android.util.Log
 import android.widget.Toast
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -170,7 +171,7 @@ class BuildingDetailsActivity : AppCompatActivity(), BuildingLevelAdapter.OnItem
                         levelRecyclerView.addItemDecoration(this)
                     }
                 } else { // Application-level failure
-                    //Toast.makeText(this@BuildingDetailsActivity, "Failed to retrieve rooms", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@BuildingDetailsActivity, "This building does not have rooms", Toast.LENGTH_SHORT).show()
                 }
             }
 
@@ -268,6 +269,7 @@ class BuildingDetailsActivity : AppCompatActivity(), BuildingLevelAdapter.OnItem
 
     override fun onStart() {
         super.onStart()
+        Log.d("onStart","Starting....")
         when {
             PermissionUtils.isAccessFineLocationGranted(this) -> {
                 when {

@@ -9,12 +9,13 @@ import android.provider.Settings
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.app.ActivityCompat.requestPermissions
 import androidx.core.content.ContextCompat
 import com.example.ufsnavigationassistant.R
 
 object PermissionUtils {
     /**
-     * Function to request permission from the user
+     * Function to request permission from the user in Activity
      */
     fun requestAccessFineLocationPermission(activity: AppCompatActivity, requestId: Int) {
         ActivityCompat.requestPermissions(

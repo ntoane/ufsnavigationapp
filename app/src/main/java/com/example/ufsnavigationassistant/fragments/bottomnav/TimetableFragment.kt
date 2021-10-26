@@ -1,30 +1,35 @@
 package com.example.ufsnavigationassistant.fragments.bottomnav
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
+import android.os.Looper
 import android.util.Log
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import android.view.View
-import android.widget.Button
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ufsnavigationassistant.MainActivity
 import com.example.ufsnavigationassistant.R
 import com.example.ufsnavigationassistant.activities.CreateTimetableActivity
 import com.example.ufsnavigationassistant.activities.StartNavigationActivity
 import com.example.ufsnavigationassistant.core.EventAdapter
+import com.example.ufsnavigationassistant.core.PermissionUtils
 import com.example.ufsnavigationassistant.core.TimetableAdapter
 import com.example.ufsnavigationassistant.models.*
 import com.example.ufsnavigationassistant.services.EventService
 import com.example.ufsnavigationassistant.services.LoginService
 import com.example.ufsnavigationassistant.services.ServiceBuilder
 import com.example.ufsnavigationassistant.services.TimetableService
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationResult
+import com.google.android.gms.location.LocationServices
 import com.mapbox.services.android.navigation.v5.navigation.MapboxNavigation
 import kotlinx.android.synthetic.main.fragment_event.*
 import kotlinx.android.synthetic.main.fragment_timetable.*
@@ -57,7 +62,6 @@ class TimetableFragment : Fragment(R.layout.fragment_timetable), TimetableAdapte
         timetable_navigation_fab.setOnClickListener {
             startActivity(Intent(context, CreateTimetableActivity::class.java))
         }
-
         //Navigate to the next class
         next_class_start_nav.setOnClickListener {
             val navigationIntent = Intent(context, StartNavigationActivity::class.java)
@@ -102,6 +106,7 @@ class TimetableFragment : Fragment(R.layout.fragment_timetable), TimetableAdapte
     }
 
     override fun onItemClick(timetable: Timetable) {
+        //onItemClick is implemented on button delete timetable
         val timetableService: TimetableService = ServiceBuilder.buildService(TimetableService::class.java)
         val requestCall: Call<DeleteTimetable> = timetableService.deleteTimetable(timetable.timetable_id)
 
@@ -112,6 +117,7 @@ class TimetableFragment : Fragment(R.layout.fragment_timetable), TimetableAdapte
                     val deleteResult: DeleteTimetable = response.body()!!
                     Toast.makeText(activity, "${deleteResult.message}", Toast.LENGTH_LONG).show()
                     loadTimetable()
+                    loadNextClass()
 
                 } else { // Application-level failure
                     Toast.makeText(activity, "Failed to delete the timetable entry", Toast.LENGTH_LONG).show()
@@ -206,31 +212,10 @@ class TimetableFragment : Fragment(R.layout.fragment_timetable), TimetableAdapte
         })
     }
 
-    private fun deleteTimetable(timetableId: Int) {
-        val timetableService: TimetableService = ServiceBuilder.buildService(TimetableService::class.java)
-        val requestCall: Call<DeleteTimetable> = timetableService.deleteTimetable(timetableId)
+    override fun onResume() {// Is used to load new timetable entries
+        super.onResume()
 
-        //Method is executed if Http response is received
-        //Status code will decide if Http Response is a Success or Failure
-        requestCall.enqueue(object : Callback<DeleteTimetable> {
-            override fun onResponse(call: Call<DeleteTimetable>, response: Response<DeleteTimetable>) {
-                if(response.isSuccessful) {
-                    //Get List from http response body
-                    val message = response.body()!!
-                    //Display returned message
-                    Toast.makeText(activity, "${message.message}", Toast.LENGTH_LONG).show()
-                    loadTimetable()
-
-                } else { // Application-level failure
-                    Toast.makeText(activity, "Undefined timetable entry to be deleted", Toast.LENGTH_LONG).show()
-                }
-            }
-
-            //Invoked in case of network error or establishing connection with the server
-            //Or error creating Http Request or Error Processing Http Response
-            override fun onFailure(call: Call<DeleteTimetable>, t: Throwable) {
-                Toast.makeText(activity, "Error occurred: $t", Toast.LENGTH_LONG).show()
-            }
-        })
+        loadNextClass()
+        loadTimetable()
     }
 }

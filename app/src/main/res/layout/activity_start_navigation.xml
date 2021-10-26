@@ -13,17 +13,19 @@
         android:layout_marginStart="16dp"
         android:text="@string/tv_destination"
         android:textColor="@color/color_primary_variant"
-        android:textSize="17sp"
+        android:textSize="19sp"
         android:textStyle="bold"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/btn_home"
+        android:id="@+id/btn_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/home"
+        android:text="@string/back"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tv_destination_reached"

@@ -29,6 +29,7 @@ import kotlinx.android.synthetic.main.activity_start_navigation.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import timber.log.Timber
 
 class StartNavigationActivity : AppCompatActivity() {
 
@@ -52,8 +53,8 @@ class StartNavigationActivity : AppCompatActivity() {
         // set toolbar as support action bar and change title
         supportActionBar!!.title = "Directions to $buildingName"
 
-        startPoint()
-        setUpLocationListener()
+        //startPoint()
+        //setUpLocationListener()
 
         navigation = MapboxNavigation(applicationContext, getString(R.string.mapbox_access_token))
 
@@ -62,13 +63,12 @@ class StartNavigationActivity : AppCompatActivity() {
         //val startPoint = Point.fromLngLat(originLocation!!.longitude, originLocation!!.latitude)
         val endPoint = Point.fromLngLat(longitude, latitude)
 
-        btn_home.visibility = View.GONE
-        tv_destination_reached.visibility = View.GONE
         //Call this function to start turn-by-turn navigation
         getRoute(startPoint, endPoint)
 
-        btn_home.setOnClickListener {
-            startActivity(Intent(this@StartNavigationActivity, MainActivity::class.java))
+        btn_back.setOnClickListener {
+            //startActivity(Intent(this@StartNavigationActivity, MainActivity::class.java))
+            finish()
         }
     }
 
@@ -99,7 +99,7 @@ class StartNavigationActivity : AppCompatActivity() {
                         .build()
                     NavigationLauncher.startNavigation(this@StartNavigationActivity, options)
                     //Set UI elements visible
-                    btn_home.visibility = View.VISIBLE
+                    btn_back.visibility = View.VISIBLE
                     tv_destination_reached.visibility = View.VISIBLE
                 }
 
@@ -107,6 +107,12 @@ class StartNavigationActivity : AppCompatActivity() {
                     Toast.makeText(this@StartNavigationActivity, "Error: $t", Toast.LENGTH_LONG).show()
                 }
             })
+    }
+
+    /*************************Mapbox Location services *******************************/
+    override fun onDestroy() {
+        super.onDestroy()
+        navigation!!.onDestroy() //End the navigation session
     }
 
     /****************************** Google API Location services for current Location *********************/
@@ -124,7 +130,6 @@ class StartNavigationActivity : AppCompatActivity() {
                     super.onLocationResult(locationResult)
                     for (location in locationResult.locations) {
                         originLocation = location
-                        Log.d("Loc_origin: ","Location assigned")
                     }
                 }
             },
@@ -132,14 +137,14 @@ class StartNavigationActivity : AppCompatActivity() {
         )
     }
 
-    private fun startPoint() {
-        //super.onStart()
+    override fun onStart() {
+        super.onStart()
+        Log.d("onStart","Starting....")
         when {
             PermissionUtils.isAccessFineLocationGranted(this) -> {
                 when {
                     PermissionUtils.isLocationEnabled(this) -> {
                         setUpLocationListener()
-                        Log.d("Loc1: ", "onStart")
                     }
                     else -> {
                         PermissionUtils.showGPSNotEnabledDialog(this)
@@ -148,16 +153,22 @@ class StartNavigationActivity : AppCompatActivity() {
             }
             else -> {
                 PermissionUtils.requestAccessFineLocationPermission(
-                    this, LOCATION_PERMISSION_REQUEST_CODE
+                    this,
+                    LOCATION_PERMISSION_REQUEST_CODE
                 )
             }
         }
     }
 
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        when (requestCode) {LOCATION_PERMISSION_REQUEST_CODE -> {
+        when (requestCode) {
+            LOCATION_PERMISSION_REQUEST_CODE -> {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     when {
                         PermissionUtils.isLocationEnabled(this) -> {
@@ -176,10 +187,5 @@ class StartNavigationActivity : AppCompatActivity() {
                 }
             }
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        navigation!!.onDestroy() //End the navigation session
     }
 }

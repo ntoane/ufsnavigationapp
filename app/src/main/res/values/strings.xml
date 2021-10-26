@@ -53,8 +53,8 @@
     <string name="dash">-</string>
     <string name="comma">,</string>
     <string name="start_nav">START NAVIGATION</string>
-    <string name="tv_destination">Tap here to return to home screen</string>
-    <string name="home">Home</string>
+    <string name="tv_destination">Tap here to return back</string>
+    <string name="back">Back</string>
     <string name="entrance">Entrance name</string>
     <string name="direction_text">Directions</string>
 
@@ -76,4 +76,8 @@
         <item>Thursday</item>
         <item>Friday</item>
     </string-array>
+
+    <string name="create_timetable_title">New timetable entry</string>
+    <string name="module_code">Module code</string>
+    <string name="create_timetable">Create entry</string>
 </resources>
