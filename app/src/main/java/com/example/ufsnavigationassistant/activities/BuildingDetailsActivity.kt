@@ -178,11 +178,7 @@ class BuildingDetailsActivity : AppCompatActivity(), BuildingLevelAdapter.OnItem
             //Invoked in case of network error or establishing connection with the server
             //Or error creating Http Request or Error Processing Http Response
             override fun onFailure(call: Call<List<BuildingLevel>>, t: Throwable) {
-                Toast.makeText(
-                    this@BuildingDetailsActivity,
-                    "Error occurred: $t",
-                    Toast.LENGTH_LONG
-                ).show()
+                Toast.makeText(this@BuildingDetailsActivity, "Error occurred: $t", Toast.LENGTH_LONG).show()
             }
         })
     }
@@ -209,18 +205,10 @@ class BuildingDetailsActivity : AppCompatActivity(), BuildingLevelAdapter.OnItem
                     response: Response<DirectionsResponse?>
                 ) {
                     if (response.body() == null) {
-                        Toast.makeText(
-                            this@BuildingDetailsActivity,
-                            "No routes found, there is connection error",
-                            Toast.LENGTH_LONG
-                        ).show()
+                        Toast.makeText(this@BuildingDetailsActivity, "No routes found, there is connection error", Toast.LENGTH_LONG).show()
                         return
                     } else if (response.body()!!.routes().size < 1) {
-                        Toast.makeText(
-                            this@BuildingDetailsActivity,
-                            "No routes found to the destination",
-                            Toast.LENGTH_LONG
-                        ).show()
+                        Toast.makeText(this@BuildingDetailsActivity, "No routes found to the destination", Toast.LENGTH_LONG).show()
                         return
                     }
                     val route = response.body()!!.routes().first()

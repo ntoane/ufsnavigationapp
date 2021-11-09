@@ -15,6 +15,7 @@ import android.util.Log
 import android.widget.SpinnerAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ufsnavigationassistant.core.TimetableAdapter
+import com.example.ufsnavigationassistant.models.BuildingsRooms
 import com.example.ufsnavigationassistant.models.CreateTimetable
 import com.example.ufsnavigationassistant.models.ModuleCode
 import com.example.ufsnavigationassistant.services.ServiceBuilder
@@ -25,12 +26,17 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class CreateTimetableActivity : AppCompatActivity() {
 
     private val CUSTOM_PREF_NAME = "token_data"
+    private val TIMETABLE_DATA = "timetable_data"
+
     private lateinit var day: String
+    private lateinit var room: String
+    private lateinit var module: String
     //private var moduleCode: String? =null
 
     private var moduleCodes: List<ModuleCode> = emptyList()
@@ -42,12 +48,17 @@ class CreateTimetableActivity : AppCompatActivity() {
         // set toolbar as support action bar and change title
         supportActionBar!!.title = "Timetable"
 
-        //Retrieve module codes
-        //getModuleCodes()
-        //Log.e("Module: ",moduleCodes.toString())
         // access the items of the list
         val days = resources.getStringArray(R.array.Days)
         // access the spinner
+        if (room_spinner != null) {
+            getAllRooms()
+        }
+
+        if(module_spinner != null) {
+            getModuleCodes()
+        }
+
         if (day_spinner != null) {
             val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, days)
             day_spinner.adapter = adapter
@@ -56,8 +67,6 @@ class CreateTimetableActivity : AppCompatActivity() {
                 AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
                     day = days[position]
-                    /*Toast.makeText(this@CreateTimetableActivity,  "Item selected: " +
-                                "" + days[position], Toast.LENGTH_LONG).show()*/
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>) {
@@ -90,16 +99,17 @@ class CreateTimetableActivity : AppCompatActivity() {
         btn_create_timetable.setOnClickListener {
             // Get student number
             val prefs = customPreference( CUSTOM_PREF_NAME)
+            val prefsTimetable = customPreference( TIMETABLE_DATA)
             val stdNumber = prefs.getInt("std_number",0)
             val token = prefs.getString("token","")
             //Initialize views
-            val roomId = et_room_name.text.trim()
-            val moduleCode = et_module_code.text.trim()
+            val roomId = prefsTimetable.getString("room_id","").toString()
+            val moduleCode = prefsTimetable.getString("module_code","").toString()
             val startTime = et_start_time.text.trim()
             val endTime = et_end_time.text.trim()
 
             if(stdNumber > 0 && roomId.isNotEmpty() && moduleCode.isNotEmpty() && day.isNotEmpty() && startTime.isNotEmpty() && endTime.isNotEmpty()) {
-                createTimetable(stdNumber, roomId.toString().toInt(), moduleCode.toString(), day, startTime.toString(), endTime.toString(), token!!)
+                createTimetable(stdNumber, roomId.toInt(), moduleCode, day, startTime.toString(), endTime.toString(), token!!)
             }else {
                 Toast.makeText(this, "Please select all the fields", Toast.LENGTH_LONG).show()
             }
@@ -154,8 +164,39 @@ class CreateTimetableActivity : AppCompatActivity() {
                 if(response.isSuccessful) {
                     //Get List from http response body
                     val modules: List<ModuleCode> = response.body()!!
-                    setModuleCode(modules)
-                    //Log.e("Codes: ", moduleCodes.toString())
+                    val iterator = modules.listIterator()
+                    val arrayModules: MutableList<String> = ArrayList()
+                    while (iterator.hasNext()) {
+                        arrayModules.add(iterator.next().module_code.toString())
+                    }
+                    //Set list of modules to Spinner
+                    val adapter = ArrayAdapter(this@CreateTimetableActivity, android.R.layout.simple_spinner_dropdown_item, arrayModules)
+                    module_spinner.adapter = adapter
+
+                    module_spinner.onItemSelectedListener = object :
+                        AdapterView.OnItemSelectedListener {
+                        override fun onItemSelected(
+                            parent: AdapterView<*>,
+                            view: View,
+                            position: Int,
+                            id: Long
+                        ) {
+                            //Store selected module to shared preference file
+                            val prefs = customPreference(TIMETABLE_DATA)
+                            prefs.edit().remove("module_code").apply()
+
+                            var editor = prefs.edit()
+                            editor.putString("module_code",arrayModules[position])
+                            editor.apply()
+
+                        }
+
+                        override fun onNothingSelected(parent: AdapterView<*>) {
+                            // write code to perform some action
+                        }
+                    }
+                //setModuleCode(modules)
+                //Log.e("Codes: ", moduleCodes.toString())
 
                 } else { // Application-level failure
                     Toast.makeText(this@CreateTimetableActivity, "There are currently modules available", Toast.LENGTH_LONG).show()
@@ -170,8 +211,65 @@ class CreateTimetableActivity : AppCompatActivity() {
         })
     }
 
-    private fun setModuleCode(modules: List<ModuleCode>) {
+    private fun getAllRooms(){
+        val timetableService: TimetableService = ServiceBuilder.buildService(TimetableService::class.java)
+        val requestCall: Call<List<BuildingsRooms>> = timetableService.getAllRooms()
 
-        moduleCodes = modules
+        requestCall.enqueue(object : Callback<List<BuildingsRooms>> {
+            override fun onResponse(call: Call<List<BuildingsRooms>>, response: Response<List<BuildingsRooms>>) {
+                if(response.isSuccessful) {
+                    //Get List from http response body
+                    val buildingsRooms: List<BuildingsRooms> = response.body()!!
+                    val iterator = buildingsRooms.listIterator()
+                    //Parallel arrays
+                    val arrayRooms: MutableList<String> = ArrayList() //Holds building, level, room
+                    val arrayRoomIndex: MutableList<Int> = ArrayList() // Holds corresponding room Id
+                    while (iterator.hasNext()) {
+                        val nextRoomData = iterator.next()
+                        val tempBuildingRooms = nextRoomData.building_name + " - " + "Level " + nextRoomData.floor_num + " - " + nextRoomData.room_name
+                        arrayRooms.add(tempBuildingRooms)
+                        arrayRoomIndex.add(nextRoomData.room_id)
+                    }
+                    //Set list of modules to Spinner
+                    val adapter = ArrayAdapter(this@CreateTimetableActivity, android.R.layout.simple_spinner_dropdown_item, arrayRooms)
+                    room_spinner.adapter = adapter
+
+                    room_spinner.onItemSelectedListener = object :
+                        AdapterView.OnItemSelectedListener {
+                        override fun onItemSelected(
+                            parent: AdapterView<*>,
+                            view: View,
+                            position: Int,
+                            id: Long
+                        ) {
+                            //Store selected module to shared preference file
+                            val prefs = customPreference(TIMETABLE_DATA)
+                            prefs.edit().remove("room_id").apply()
+
+                            var editor = prefs.edit()
+                            editor.putString("room_id", arrayRoomIndex[position].toString())
+                            editor.apply()
+
+                        }
+
+                        override fun onNothingSelected(parent: AdapterView<*>) {
+                            // write code to perform some action
+                        }
+                    }
+                    //setModuleCode(modules)
+                    //Log.e("Codes: ", moduleCodes.toString())
+
+                } else { // Application-level failure
+                    Toast.makeText(this@CreateTimetableActivity, "There are currently rooms available", Toast.LENGTH_LONG).show()
+                }
+            }
+
+            //Invoked in case of network error or establishing connection with the server
+            //Or error creating Http Request or Error Processing Http Response
+            override fun onFailure(call: Call<List<BuildingsRooms>>, t: Throwable) {
+                Toast.makeText(this@CreateTimetableActivity, "Error occurred: $t", Toast.LENGTH_LONG).show()
+            }
+        })
     }
+
 }

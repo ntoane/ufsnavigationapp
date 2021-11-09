@@ -22,4 +22,7 @@ interface TimetableService {
 
     @GET("timetable/module_codes")
     fun getModuleCodes(): Call<List<ModuleCode>>
+
+    @GET("timetable/all_rooms")
+    fun getAllRooms(): Call<List<BuildingsRooms>>
 }

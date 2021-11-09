@@ -41,11 +41,11 @@
                 android:text="@string/room_name"
                 android:textSize="22sp" />
 
-            <EditText
-                android:id="@+id/et_room_name"
+            <Spinner
+                android:id="@+id/room_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text" />
+                style="@android:style/Widget.Material.Spinner.Underlined"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -53,11 +53,11 @@
                 android:text="@string/module_code"
                 android:textSize="22sp" />
 
-            <EditText
-                android:id="@+id/et_module_code"
+            <Spinner
+                android:id="@+id/module_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text" />
+                style="@android:style/Widget.Material.Spinner.Underlined"/>
 
             <TextView
                 android:layout_width="wrap_content"

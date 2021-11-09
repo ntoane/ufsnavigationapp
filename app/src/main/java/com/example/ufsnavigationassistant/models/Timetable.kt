@@ -35,3 +35,11 @@ data class ModuleCode(
     var status: Boolean? = null,
     var module_code: String? = null
 )
+
+data class BuildingsRooms(
+    var building_id: Int = 0,
+    var building_name: String? = null,
+    var room_id: Int = 0,
+    var room_name: String? = null,
+    var floor_num: Int = 0
+)
