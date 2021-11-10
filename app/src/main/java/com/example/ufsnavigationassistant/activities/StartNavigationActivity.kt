@@ -1,7 +1,9 @@
 package com.example.ufsnavigationassistant.activities
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
@@ -37,6 +39,8 @@ class StartNavigationActivity : AppCompatActivity() {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 999
     }
 
+    private val CURRENT_LOCATION = "location"
+
     var navigation: MapboxNavigation? = null
     private var originLocation: Location? = null
 
@@ -59,7 +63,13 @@ class StartNavigationActivity : AppCompatActivity() {
         navigation = MapboxNavigation(applicationContext, getString(R.string.mapbox_access_token))
 
         //Build origin and destination Points for route construction
-        val startPoint = Point.fromLngLat(26.187378421174966, -29.10737947010742)
+        //Read coordinates from shared Preference
+        val prefs = customPreference(CURRENT_LOCATION)
+        val prefLatitude = prefs.getFloat("latitude", 0.0F)
+        val prefLongitude = prefs.getFloat("longitude", 0.0F)
+
+        val startPoint = Point.fromLngLat(prefLongitude.toDouble(), prefLatitude.toDouble())
+        //val startPoint = Point.fromLngLat(26.187378421174966, -29.10737947010742)
         //val startPoint = Point.fromLngLat(originLocation!!.longitude, originLocation!!.latitude)
         val endPoint = Point.fromLngLat(longitude, latitude)
 
@@ -71,6 +81,9 @@ class StartNavigationActivity : AppCompatActivity() {
             finish()
         }
     }
+
+    private fun customPreference(name: String): SharedPreferences =
+        this.getSharedPreferences(name, Context.MODE_PRIVATE)
 
     private fun getRoute(origin: Point, destination: Point) {
         NavigationRoute.builder(applicationContext)
@@ -129,7 +142,16 @@ class StartNavigationActivity : AppCompatActivity() {
                 override fun onLocationResult(locationResult: LocationResult) {
                     super.onLocationResult(locationResult)
                     for (location in locationResult.locations) {
-                        originLocation = location
+
+                        //Store fused location coordinates to shared preference
+                        val prefs = customPreference(CURRENT_LOCATION)
+                        prefs.edit().remove("latitude").apply()
+                        prefs.edit().remove("longitude").apply()
+
+                        var editor = prefs.edit()
+                        editor.putFloat("latitude", location.latitude.toFloat())
+                        editor.putFloat("longitude", location.longitude.toFloat())
+                        editor.apply()
                     }
                 }
             },
